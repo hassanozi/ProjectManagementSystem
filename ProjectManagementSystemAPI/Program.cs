@@ -1,6 +1,19 @@
+using Microsoft.EntityFrameworkCore;
+using ProjectManagementSystemAPI.Data;
+using System.Diagnostics;
+using System.Reflection;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddDbContext<Context>(option =>
+{
+    option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+    .LogTo(log => Debug.WriteLine(log), LogLevel.Information)
+    .EnableSensitiveDataLogging();
+});
+
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly())); // instead name of each one 
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
