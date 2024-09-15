@@ -19,6 +19,7 @@ namespace ProjectManagementSystemAPI.Controllers
         }
 
         [HttpPost]
+
         public async Task<ActionResult<ResultDTO>> Register(UserDTO user)
         {
             var x = await _mediator.Send(new RegisterUserCommand( user));

@@ -1,6 +1,4 @@
 ﻿
-
-
 namespace ProjectManagementSystemAPI.Model
 {
     public class User : BaseModel
@@ -11,6 +9,7 @@ namespace ProjectManagementSystemAPI.Model
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
+        
 
        
         public List<Claim> Claims { get; set; }
