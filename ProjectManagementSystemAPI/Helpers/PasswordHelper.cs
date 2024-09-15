@@ -1,10 +1,29 @@
-﻿using System.Security.Cryptography;
+﻿using ProjectManagementSystemAPI.DTO.Users;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace ProjectManagementSystemAPI.Helper
 {
-    public static class HashPassword
+    public static class PasswordHelper
     {
+
+        public static string CreatePasswordHash(string password)
+        {
+            return BCrypt.Net.BCrypt.HashPassword(password);
+        }
+
+        public static async Task<bool> CheckUserPasswordAsync(string PasswordHash, string password)
+        {
+            
+
+            if ( !BCrypt.Net.BCrypt.Verify(password,PasswordHash))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         public static string Encrypt(string clearText, string encryptKey = "taRek123")
         {
             //string EncryptionKey = "abc123";

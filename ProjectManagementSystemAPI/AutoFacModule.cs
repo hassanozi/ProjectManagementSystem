@@ -2,12 +2,12 @@
 using AutoMapper;
 
 using ProjectManagementSystemAPI.Data;
-
-using ProjectManagementSystemAPI.Mediators.Users;
+using ProjectManagementSystemAPI.MapperProfile;
+//using ProjectManagementSystemAPI.Mediators.Users;
 using ProjectManagementSystemAPI.Repositories;
 
 
-using ProjectManagementSystemAPI.Services.Users;
+//using ProjectManagementSystemAPI.Services.Users;
 
 
 namespace ProjectManagementSystemAPI
@@ -19,15 +19,15 @@ namespace ProjectManagementSystemAPI
             builder.RegisterType<Context>().InstancePerLifetimeScope();
             builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope();
 
-            builder.RegisterType<UserService>().As<IUserService>().InstancePerLifetimeScope();
-           
+            //builder.RegisterType<UserService>().As<IUserService>().InstancePerLifetimeScope();
 
-            //builder.RegisterType<UserMediator>().As<IUserMediator>().InstancePerLifetimeScope();
            
+            //builder.RegisterType<UserMediator>().As<IUserMediator>().InstancePerLifetimeScope();
+
 
             builder.Register(context => new MapperConfiguration(cfg =>
             {
-                //cfg.AddProfile<UserProfile>();
+                cfg.AddProfile<UserProfile>();
                 //cfg.AddProfile<RoomProfile>();
                 //cfg.AddProfile<FeedbackProfile>();
                 //cfg.AddProfile<FacilityProfile>();

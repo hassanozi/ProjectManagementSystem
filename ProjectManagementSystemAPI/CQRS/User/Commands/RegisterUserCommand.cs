@@ -1,4 +1,4 @@
-﻿using ProjectManagementSystemAPI.Mediators.Users;
+﻿//using ProjectManagementSystemAPI.Mediators.Users;
 using MediatR;
 using ProjectManagementSystemAPI.DTO;
 using ProjectManagementSystemAPI.DTO.Auth;
@@ -9,37 +9,50 @@ using ProjectManagementSystemAPI.Repositories;
 
 namespace ProjectManagementSystemAPI.CQRS.User.Commands
 {
-    public record RegisterUserCommand(UserRegisterDTO UserDTO) :IRequest<bool>;
+    public record RegisterUserCommand(UserRegisterDTO UserRegisterDTO) :IRequest<ResultDTO>;
 
-    public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand,bool>
+    public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand,ResultDTO>
     {
-        IMediator _mediator;
-        IUserMediator _userMediator;
+
+       
         IRepository<Model.User> _userRepository;
-        public RegisterUserCommandHandler(IMediator mediator 
-            , IUserMediator userMediator
-            , IRepository<Model.User> userRepository
+        public RegisterUserCommandHandler(
+            
+             IRepository<Model.User> userRepository
             )
         {
-            _mediator = mediator;
-            _userMediator = userMediator;
+            
+           
             _userRepository = userRepository;
         }
 
 
 
-        public async Task<bool> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
+        public async Task<ResultDTO> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
         {
-            if( request == null )
+            var result = await _userRepository.First(u => u.Email == request.UserRegisterDTO.Email);
+
+            if (result is not null)
             {
-                return false;
+                return ResultDTO.Faliure("Email is already registered!");
             }
 
-            var user = request.MapOne<UserRegisterDTO>();
-            Model.User user1 = user.MapOne<Model.User>();
+            result = await _userRepository.First(user => user.UserName == request.UserRegisterDTO.UserName);
+
+            if (result is not null)
+            {
+                return ResultDTO.Faliure("Username is alerady registered!");
+            }
             
-             ResultDTO resultDTO =await  _userMediator.RegisterAsync(user);
-            return true;
+
+           
+
+            Model.User user = request.UserRegisterDTO.MapOne<Model.User>();
+            user.PasswordHash = PasswordHelper.CreatePasswordHash( request.UserRegisterDTO.Password);
+            user = await _userRepository.AddAsync(user);
+
+            ResultDTO resultDTO =ResultDTO.Sucess(user);
+            return ResultDTO.Sucess(user);
 
         }
     }
