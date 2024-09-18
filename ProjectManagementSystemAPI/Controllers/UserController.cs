@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ProjectManagementSystemAPI.CQRS.User.Commands;
+using ProjectManagementSystemAPI.CQRS.Users.Commands;
 using ProjectManagementSystemAPI.DTO.Auth;
 using ProjectManagementSystemAPI.DTO.Users;
 using ProjectManagementSystemAPI.ViewModels;
@@ -23,7 +23,7 @@ namespace ProjectManagementSystemAPI.Controllers
 
         public async Task<ActionResult<ResponseViewModel>> Register(UserRegisterDTO user)
         {
-            var x = await _mediator.Send(new RegisterUserCommand( user));
+            var x = await _mediator.Send(new RegisterUserCommand(user));
 
             return Ok( x);
         }
