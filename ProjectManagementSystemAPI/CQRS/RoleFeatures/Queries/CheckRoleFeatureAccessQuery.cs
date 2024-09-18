@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
-using ProjectManagementSystemAPI.Constants.Enum;
+using ProjectManagementSystemAPI.Enum;
 using ProjectManagementSystemAPI.Model;
 using ProjectManagementSystemAPI.Repositories;
 
