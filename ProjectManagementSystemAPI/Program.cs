@@ -12,6 +12,8 @@ using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.Extensions.Configuration;
+using ProjectManagementSystemAPI.Constants;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -50,23 +52,23 @@ builder.Services.AddSwaggerGen(c =>
     });
 
     c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
                 {
-                    {
-                        new OpenApiSecurityScheme
-                        {
-                            Reference = new OpenApiReference
-                            {
-                                Type = ReferenceType.SecurityScheme,
-                                Id = "Bearer"
-                            },
-                            Scheme = "oauth2",
-                            Name = "Bearer",
-                            In = ParameterLocation.Header,
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                },
+                Scheme = "oauth2",
+                Name = "Bearer",
+                In = ParameterLocation.Header,
 
-                        },
-                        new List<string>()
-                    }
-                });
+            },
+            new List<string>()
+        }
+    });
 });
 
 builder.Services.AddAuthentication(opts =>
@@ -78,12 +80,13 @@ builder.Services.AddAuthentication(opts =>
     opts.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuer = true,
+        ValidIssuer = JwtSettings.Issuer,
         ValidateAudience = true,
+        ValidAudience = JwtSettings.Audience,
         ValidateLifetime = true,
+        ClockSkew = TimeSpan.Zero, // Reduce the default clock skew (allowable token time discrepancy)
         ValidateIssuerSigningKey = true,
-        ValidIssuer = "HotelReservationSystem",
-        ValidAudience = "HotelReservationSystem-Users",
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration["JWT:Key"]))
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(JwtSettings.Key))
     };
 });
 
