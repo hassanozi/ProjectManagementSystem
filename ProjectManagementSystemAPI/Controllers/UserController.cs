@@ -1,9 +1,7 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjectManagementSystemAPI.CQRS.Users.Commands;
 using ProjectManagementSystemAPI.DTO.Auth;
-using ProjectManagementSystemAPI.DTO.Users;
 using ProjectManagementSystemAPI.ViewModels;
 
 namespace ProjectManagementSystemAPI.Controllers
