@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjectManagementSystemAPI.CQRS.User.Commands;
-using ProjectManagementSystemAPI.DTO;
 using ProjectManagementSystemAPI.DTO.Auth;
 using ProjectManagementSystemAPI.DTO.Users;
+using ProjectManagementSystemAPI.ViewModels;
 
 namespace ProjectManagementSystemAPI.Controllers
 {
@@ -21,7 +21,7 @@ namespace ProjectManagementSystemAPI.Controllers
 
         [HttpPost]
 
-        public async Task<ActionResult<ResultDTO>> Register(UserRegisterDTO user)
+        public async Task<ActionResult<ResponseViewModel>> Register(UserRegisterDTO user)
         {
             var x = await _mediator.Send(new RegisterUserCommand( user));
 
@@ -30,7 +30,7 @@ namespace ProjectManagementSystemAPI.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult<ResultDTO>> Login(UserLoginDTO user)
+        public async Task<ActionResult<ResponseViewModel>> Login(UserLoginDTO user)
         {
             var x = await _mediator.Send(new LoginUserCommand(user));
 

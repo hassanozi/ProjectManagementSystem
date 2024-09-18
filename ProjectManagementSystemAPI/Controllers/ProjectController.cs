@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjectManagementSystemAPI.CQRS.Projects.Queries;
-using ProjectManagementSystemAPI.DTO;
 using ProjectManagementSystemAPI.DTO.Project;
+using ProjectManagementSystemAPI.ViewModels;
 
 namespace ProjectManagementSystemAPI.Controllers
 {
@@ -19,7 +19,7 @@ namespace ProjectManagementSystemAPI.Controllers
 
         [HttpPost]
 
-        public async Task<ActionResult<ResultDTO>> AddProject(AddProjectDTO addProjectDTO)
+        public async Task<ActionResult<ResponseViewModel>> AddProject(AddProjectDTO addProjectDTO)
         {
             var result = await  _mediator.Send(addProjectDTO);
             return Ok(result);
@@ -27,7 +27,7 @@ namespace ProjectManagementSystemAPI.Controllers
 
         [HttpGet]
 
-        public async Task<ActionResult<ResultDTO>> getProjectById(int id)
+        public async Task<ActionResult<ResponseViewModel>> getProjectById(int id)
         {
             var result = await _mediator.Send(new GetProjectByIdQuery(id));
             return Ok(result);

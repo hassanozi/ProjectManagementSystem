@@ -1,15 +1,15 @@
 ﻿using MediatR;
-using ProjectManagementSystemAPI.DTO;
 using ProjectManagementSystemAPI.DTO.Project;
 using ProjectManagementSystemAPI.Helper;
 using ProjectManagementSystemAPI.Model;
 using ProjectManagementSystemAPI.Repositories;
+using ProjectManagementSystemAPI.ViewModels;
 
 namespace ProjectManagementSystemAPI.CQRS.Projects.Commands
 {
-    public record AddProjectCommand(AddProjectDTO AddProjectDTO) :IRequest<ResultDTO>;
+    public record AddProjectCommand(AddProjectDTO AddProjectDTO) :IRequest<ResponseViewModel>;
 
-    public class AddProjectCommandHandler : IRequestHandler<AddProjectCommand, ResultDTO>
+    public class AddProjectCommandHandler : IRequestHandler<AddProjectCommand, ResponseViewModel>
     {
         IRepository<Project> _repository;
         public AddProjectCommandHandler(IRepository<Project> repository) 
@@ -18,7 +18,7 @@ namespace ProjectManagementSystemAPI.CQRS.Projects.Commands
         _repository = repository;
         }
 
-        public async Task<ResultDTO> Handle(AddProjectCommand request, CancellationToken cancellationToken)
+        public async Task<ResponseViewModel> Handle(AddProjectCommand request, CancellationToken cancellationToken)
         {
             if (request == null) 
             {
@@ -28,7 +28,7 @@ namespace ProjectManagementSystemAPI.CQRS.Projects.Commands
             var project = request.AddProjectDTO.MapOne<Project>();
             project = await _repository.AddAsync(project);
 
-            return ResultDTO.Sucess(project);
+            return ResponseViewModel.Sucess(project);
             
            
         }
