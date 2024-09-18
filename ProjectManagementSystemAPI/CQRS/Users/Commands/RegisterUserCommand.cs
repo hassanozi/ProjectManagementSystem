@@ -1,5 +1,4 @@
-﻿//using ProjectManagementSystemAPI.Mediators.Users;
-using MediatR;
+﻿using MediatR;
 using ProjectManagementSystemAPI.DTO.Auth;
 using ProjectManagementSystemAPI.Helper;
 using ProjectManagementSystemAPI.Model;
@@ -8,7 +7,7 @@ using ProjectManagementSystemAPI.ViewModels;
 
 namespace ProjectManagementSystemAPI.CQRS.Users.Commands
 {
-    public record RegisterUserCommand(UserRegisterDTO UserRegisterDTO) : IRequest<ResponseViewModel>;
+    public record RegisterUserCommand(UserRegisterDTO userRegisterDTO) : IRequest<ResponseViewModel>;
 
     public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, ResponseViewModel>
     {
@@ -20,22 +19,22 @@ namespace ProjectManagementSystemAPI.CQRS.Users.Commands
 
         public async Task<ResponseViewModel> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
         {
-            var result = await _userRepository.First(u => u.Email == request.UserRegisterDTO.Email);
+            var result = await _userRepository.First(u => u.Email == request.userRegisterDTO.Email);
 
             if (result is not null)
             {
                 return ResponseViewModel.Faliure("Email is already registered!");
             }
 
-            result = await _userRepository.First(user => user.UserName == request.UserRegisterDTO.UserName);
+            result = await _userRepository.First(user => user.UserName == request.userRegisterDTO.UserName);
 
             if (result is not null)
             {
                 return ResponseViewModel.Faliure("Username is alerady registered!");
             }
 
-            User user = request.UserRegisterDTO.MapOne<User>();
-            user.PasswordHash = PasswordHelper.CreatePasswordHash(request.UserRegisterDTO.Password);
+            User user = request.userRegisterDTO.MapOne<User>();
+            user.PasswordHash = PasswordHelper.CreatePasswordHash(request.userRegisterDTO.Password);
             user = await _userRepository.AddAsync(user);
 
             ResponseViewModel resultDTO =ResponseViewModel.Sucess(user);
