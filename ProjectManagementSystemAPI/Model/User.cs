@@ -14,5 +14,6 @@ namespace ProjectManagementSystemAPI.Model
 
         public int RoleID { get; set; }
         public List<UserRole> UserRoles { get; set; }
+        public List<UserTask> UserTasks { get; set; }
     }
 }

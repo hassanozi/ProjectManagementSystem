@@ -1,4 +1,4 @@
-﻿using ProjectManagementSystemAPI.Constants.Enum;
+﻿using ProjectManagementSystemAPI.Enum;
 
 namespace ProjectManagementSystemAPI.Model
 {
@@ -6,6 +6,7 @@ namespace ProjectManagementSystemAPI.Model
     {
         public int RoleID { get; set; }
         public Role Role { get; set; }
+
         public Feature Feature { get; set; }
     }
 }
