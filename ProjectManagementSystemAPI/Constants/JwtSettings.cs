@@ -2,9 +2,9 @@
 {
     public static class JwtSettings
     {
-        public static string Key { get; set; } = "ABYREQ$EWIEOUSLHT#@!WPIDTREFRSEE*&^%DHGFDREE";
-        public static string Issuer { get; set; } = "UpSkilling";
-        public static string Audience { get; set; } = "UpSkilling-Users";
-        public static int DurationInMinutes { get; set; } = 60;
+        public const string Key = "ABYREQ$EWIEOUSLHT#@!WPIDTREFRSEE*&^%DHGFDREE";
+        public const string Issuer = "UpSkilling";
+        public const string Audience = "UpSkilling-Users";
+        public const int DurationInMinutes = 60;
     }
 }
