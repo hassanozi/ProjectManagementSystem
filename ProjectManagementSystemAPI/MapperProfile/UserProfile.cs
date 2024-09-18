@@ -26,7 +26,7 @@ namespace ProjectManagementSystemAPI.MapperProfile
             CreateMap<UserCreateDTO, User>();
 
             CreateMap<UserDTO, User>()
-                .ForMember(dest => dest.Claims, opt => opt.Ignore())
+                //.ForMember(dest => dest.Claims, opt => opt.Ignore())
                 //.ForMember(dest => dest.Customer, opt => opt.Ignore())
                 //.ForMember(dest => dest.Staff, opt => opt.Ignore())
                 .ForMember(dest => dest.UserRoles, opt => opt.Ignore());
