@@ -14,21 +14,10 @@ namespace ProjectManagementSystemAPI.Repositories
             _context = context;
         }
 
-        public T Add(T entity)
-        {
-            _context.Set<T>().Add(entity);
-            return entity;
-        }
-
         public async Task<T> AddAsync(T entity)
         {  
             await _context.Set<T>().AddAsync(entity);
             return entity;
-        }
-
-        public async Task AddRange(List<T> list)
-        {
-           await _context.Set<T>().AddRangeAsync(list);
         }
 
         public T Update(T entity)
@@ -54,43 +43,6 @@ namespace ProjectManagementSystemAPI.Repositories
             return GetAll().Where(predicate);
         }
 
-        public IEnumerable<T> GetAll(Expression<Func<T, bool>> predicate,string model)
-        {
-            IQueryable<T> query = _context.Set<T>().Include(model).Where( predicate).AsNoTracking();
-            var result = (IEnumerable<T>)query;//.ToList();
-            return result;
-        }
-
-        public  async Task<List<T>> GetAll(Expression<Func<T, bool>> predicate,params Expression<Func<T, object>>[] includes)
-        {
-            IQueryable<T> query = _context.Set<T>();
-            foreach (var include in includes)
-            {
-                query = query.Include(include);
-            }
-
-            if (predicate != null)
-            {
-                query = query.Where(predicate);
-            }
-
-            var result =  await query.ToListAsync();
-
-            return result;
-        }
-        
-        public IQueryable<T> GetAll(params Expression<Func<T, object>>[] includes)
-        {
-            IQueryable<T> query = _context.Set<T>();
-
-            foreach (var include in includes)
-            {
-                query = query.Include(include);
-            }
-
-            return query;
-        }
-
         public IQueryable<T> GetAll()
         {
             return _context.Set<T>().Where(x => !x.Deleted).AsNoTracking();
@@ -114,14 +66,9 @@ namespace ProjectManagementSystemAPI.Repositories
             return await Get(predicate).FirstOrDefaultAsync();
         }
 
-        public async Task SaveChangesAsync()
+        public void SaveChanges()
         {
-           await _context.SaveChangesAsync();
-        }
-
-        public void Add_Range(List<T> list)
-        {
-            _context.Set<T>().AddRange(list);
+            _context.SaveChanges();
         }
     }
 }
