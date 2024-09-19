@@ -13,6 +13,6 @@ namespace ProjectManagementSystemAPI.Repositories
         void Delete(T entity);
         void Delete(int id);
         Task<T> First(Expression<Func<T, bool>> predicate);
-        void SaveChanges();
+        Task SaveChangesAsync();
     }
 }

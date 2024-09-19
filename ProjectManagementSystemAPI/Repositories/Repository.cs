@@ -66,9 +66,9 @@ namespace ProjectManagementSystemAPI.Repositories
             return await Get(predicate).FirstOrDefaultAsync();
         }
 
-        public void SaveChanges()
+        public async System.Threading.Tasks.Task SaveChangesAsync()
         {
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }
