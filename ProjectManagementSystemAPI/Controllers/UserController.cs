@@ -2,9 +2,13 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjectManagementSystemAPI.CQRS.User.Commands;
+using ProjectManagementSystemAPI.CQRS.User.Queries;
 using ProjectManagementSystemAPI.DTO;
 using ProjectManagementSystemAPI.DTO.Auth;
 using ProjectManagementSystemAPI.DTO.Users;
+using ProjectManagementSystemAPI.Helper;
+using ProjectManagementSystemAPI.Paging;
+using ProjectManagementSystemAPI.ViewModels.UserViewModels;
 
 namespace ProjectManagementSystemAPI.Controllers
 {
@@ -18,7 +22,18 @@ namespace ProjectManagementSystemAPI.Controllers
         {
             _mediator = mediator;
         }
-
+        [HttpGet]
+        public async Task<UserReturnViewModel> GetUserByID(int id)
+        {
+            var result =  _mediator.Send(new GetUserByIdQuery(id)).MapOne<UserReturnViewModel>();
+            return result ;
+        }
+        [HttpGet]
+        public async Task<IEnumerable<UserReturnViewModel>> GetAllUsers(PagingParameters pagingParameters)
+        {
+            var result = _mediator.Send(new GetAllUsersQuery(pagingParameters)).MapOne<IEnumerable<UserReturnViewModel>>();
+            return result;
+        }
         [HttpPost]
 
         public async Task<ActionResult<ResultDTO>> Register(UserRegisterDTO user)
