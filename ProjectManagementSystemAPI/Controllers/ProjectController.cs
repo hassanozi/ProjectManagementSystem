@@ -21,20 +21,20 @@ namespace ProjectManagementSystemAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ResponseViewModel<bool>> CreateProject(AddProjectViewModel viewModel)
+        public async Task<ResponseViewModel> CreateProject(AddProjectViewModel viewModel)
         {
             var projectDTO = viewModel.MapOne<AddProjectDTO>();
             var command = new AddProjectCommand(projectDTO);
             var result = await _mediator.Send(command);
-            return ResponseViewModel<bool>.Success(result);
+            return ResponseViewModel.Success(result);
         }
 
         [HttpGet("{id}")]
-        public async Task<ResponseViewModel<ProjectViewModel>> GetSingleProject(int id)
+        public async Task<ResponseViewModel> GetSingleProject(int id)
         {
             var project = await _mediator.Send(new GetProjectByIdQuery(id));
             var mappedProject = project.MapOne<ProjectViewModel>();
-            return ResponseViewModel<ProjectViewModel>.Success(mappedProject);
+            return ResponseViewModel.Success(mappedProject);
         }
     }
 }

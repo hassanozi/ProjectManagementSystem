@@ -23,6 +23,7 @@ namespace ProjectManagementSystemAPI
             builder.Register(context => new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<UserProfile>();
+                cfg.AddProfile<TaskProfile>();
                 cfg.AddProfile<ProjectProfile>();
             }).CreateMapper()).As<IMapper>().InstancePerLifetimeScope();
             

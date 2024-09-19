@@ -1,4 +1,5 @@
 ﻿using ProjectManagementSystemAPI.Enums;
+using ProjectManagementSystemAPI.Models;
 
 namespace ProjectManagementSystemAPI.Model
 {
@@ -8,7 +9,7 @@ namespace ProjectManagementSystemAPI.Model
         public string? Description { get; set; }
         public DateTime CreatedOn { get; set; } = DateTime.Now;
         public StatusProject Status { get; set; }
-        public List<Task> Tasks { get; set; }
+        public List<ProjectTask> ProjectTasks { get; set; }
         public List<UserProject> UserProjects { get; set; }
     }
 }

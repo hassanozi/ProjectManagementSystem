@@ -2,17 +2,17 @@
 
 namespace ProjectManagementSystemAPI.ViewModels
 {
-    public class ResponseViewModel<T>
+    public class ResponseViewModel
     {
         public bool IsSuccess { get; set; }
-        public T Data { get; set; }
+        public dynamic Data { get; set; }
         public string Message { get; set; }
         public ErrorCode ErrorCode { get; set; }
 
 
-        public static ResponseViewModel<T> Success<T>(T data, string message = "")
+        public static ResponseViewModel Success(dynamic data, string message = "")
         {
-            return new ResponseViewModel<T>
+            return new ResponseViewModel
             {
                 IsSuccess = true,
                 Data = data,
@@ -21,9 +21,9 @@ namespace ProjectManagementSystemAPI.ViewModels
             };
         }
 
-        public static ResponseViewModel<T> Faliure(ErrorCode errorCode, string message)
+        public static ResponseViewModel Faliure( string message, ErrorCode errorCode = ErrorCode.UnKnown)
         {
-            return new ResponseViewModel<T>
+            return new ResponseViewModel
             {
                 IsSuccess = false,
                 Data = default,

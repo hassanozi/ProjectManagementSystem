@@ -34,7 +34,7 @@ namespace ProjectManagementSystemAPI.Middlewares
                     File.WriteAllText("D:\\Log.txt", $"Error happened: {ex.Message}");
                 }
 
-                var result = ResponseViewModel<bool>.Faliure(errorCode, message);
+                var result = ResponseViewModel.Faliure( message);
 
                 await context.Response.WriteAsJsonAsync(result);
             }

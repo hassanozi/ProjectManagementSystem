@@ -9,10 +9,10 @@ namespace ProjectManagementSystemAPI.Model
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; } = false;
         public DateTime CreateDate { get; set; } = DateTime.Now;
 
-        public int RoleID { get; set; }
+        public int? RoleID { get; set; } = 1;
         public List<UserRole> UserRoles { get; set; }
         public List<UserTask> UserTasks { get; set; }
         public List<UserProject> UserProjects { get; set; }

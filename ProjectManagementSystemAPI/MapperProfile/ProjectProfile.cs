@@ -12,7 +12,7 @@ namespace ProjectManagementSystemAPI.MapperProfile
             CreateMap<AddProjectDTO, Project>()
                         .ForMember(dest => dest.Id, opt => opt.Ignore())
                         .ForMember(dest => dest.CreatedOn, opt => opt.Ignore())
-                        .ForMember(dest => dest.Tasks, opt => opt.Ignore())
+                        //.ForMember(dest => dest.Tasks, opt => opt.Ignore())
                         .ForMember(dest => dest.UserProjects, opt => opt.Ignore());
             CreateMap<AddProjectViewModel, AddProjectDTO>();
 

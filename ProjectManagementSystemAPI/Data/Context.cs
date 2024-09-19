@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProjectManagementSystemAPI.Model;
+using ProjectManagementSystemAPI.Models;
 using System.Diagnostics;
 using System.Reflection;
 
@@ -18,14 +19,15 @@ namespace ProjectManagementSystemAPI.Data
 
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {
-                relationship.DeleteBehavior = DeleteBehavior.Restrict;
+                relationship.DeleteBehavior = DeleteBehavior.NoAction;
             }
         }
 
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Project> Projects { get; set; }
-        public DbSet<Model.Task> Tasks { get; set; }
+        public DbSet<ProjectTask> ProjectTasks { get; set; }
+        public DbSet<Model.Tasks> Tasks { get; set; }
         public DbSet<RoleFeature> RoleFeatures { get; set; }
         public DbSet<UserTask> UserTasks { get; set; }
         public DbSet<UserProject> UserProjects { get; set; }
