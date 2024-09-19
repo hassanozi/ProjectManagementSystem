@@ -1,4 +1,4 @@
-﻿namespace ProjectManagementSystemAPI.DTO.Auth
+﻿namespace ProjectManagementSystemAPI.DTOs.AuthDTOs
 {
     public class UserRegisterDTO
     {

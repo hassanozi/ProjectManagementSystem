@@ -1,13 +1,16 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ProjectManagementSystemAPI.CQRS.Projects.Commands;
 using ProjectManagementSystemAPI.CQRS.Projects.Queries;
-using ProjectManagementSystemAPI.DTO.Project;
+using ProjectManagementSystemAPI.DTOs.ProjectDTOs;
+using ProjectManagementSystemAPI.Helper;
+using ProjectManagementSystemAPI.Model;
 using ProjectManagementSystemAPI.ViewModels;
+using ProjectManagementSystemAPI.ViewModels.ProjectViewModels;
 
 namespace ProjectManagementSystemAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]/[action]")]
     [ApiController]
     public class ProjectController : ControllerBase
     {
@@ -18,19 +21,20 @@ namespace ProjectManagementSystemAPI.Controllers
         }
 
         [HttpPost]
-
-        public async Task<ActionResult<ResponseViewModel>> AddProject(AddProjectDTO addProjectDTO)
+        public async Task<ResponseViewModel<bool>> CreateProject(AddProjectViewModel viewModel)
         {
-            var result = await  _mediator.Send(addProjectDTO);
-            return Ok(result);
+            var projectDTO = viewModel.MapOne<AddProjectDTO>();
+            var command = new AddProjectCommand(projectDTO);
+            var result = await _mediator.Send(command);
+            return ResponseViewModel<bool>.Success(result);
         }
 
-        [HttpGet]
-
-        public async Task<ActionResult<ResponseViewModel>> getProjectById(int id)
+        [HttpGet("{id}")]
+        public async Task<ResponseViewModel<ProjectViewModel>> GetSingleProject(int id)
         {
-            var result = await _mediator.Send(new GetProjectByIdQuery(id));
-            return Ok(result);
+            var project = await _mediator.Send(new GetProjectByIdQuery(id));
+            var mappedProject = project.MapOne<ProjectViewModel>();
+            return ResponseViewModel<ProjectViewModel>.Success(mappedProject);
         }
     }
 }

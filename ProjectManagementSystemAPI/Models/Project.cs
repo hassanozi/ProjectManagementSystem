@@ -1,15 +1,14 @@
 ﻿using ProjectManagementSystemAPI.Enums;
-using ProjectManagementSystemAPI.Model;
 
-namespace ProjectManagementSystemAPI.DTOs.ProjectDTOs
+namespace ProjectManagementSystemAPI.Model
 {
-    public class ProjectDTO
+    public class Project : BaseModel
     {
         public string Title { get; set; }
         public string? Description { get; set; }
         public DateTime CreatedOn { get; set; } = DateTime.Now;
         public StatusProject Status { get; set; }
-        //public List<Model.Task> Tasks { get; set; }
-        //public List<User> Users { get; set; }
+        public List<Task> Tasks { get; set; }
+        public List<UserProject> UserProjects { get; set; }
     }
 }

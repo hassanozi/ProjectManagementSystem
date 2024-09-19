@@ -1,8 +1,8 @@
 ﻿using ProjectManagementSystemAPI.Enums;
 
-namespace ProjectManagementSystemAPI.DTOs.ProjectDTOs
+namespace ProjectManagementSystemAPI.ViewModels.ProjectViewModels
 {
-    public class AddProjectDTO
+    public class AddProjectViewModel
     {
         public string Title { get; set; }
         public string? Description { get; set; }

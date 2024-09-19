@@ -19,21 +19,11 @@ namespace ProjectManagementSystemAPI
             builder.RegisterType<Context>().InstancePerLifetimeScope();
             builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope();
 
-            //builder.RegisterType<UserService>().As<IUserService>().InstancePerLifetimeScope();
-
-           
-            //builder.RegisterType<UserMediator>().As<IUserMediator>().InstancePerLifetimeScope();
-
 
             builder.Register(context => new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<UserProfile>();
-                //cfg.AddProfile<RoomProfile>();
-                //cfg.AddProfile<FeedbackProfile>();
-                //cfg.AddProfile<FacilityProfile>();
-                //cfg.AddProfile<PictureProfile>();
-                //cfg.AddProfile<ReservationProfile>();
-                //cfg.AddProfile<RoomReservationProfile>();
+                cfg.AddProfile<ProjectProfile>();
             }).CreateMapper()).As<IMapper>().InstancePerLifetimeScope();
             
             //builder.RegisterAssemblyTypes(typeof(ConfirmReservationValidator).Assembly)

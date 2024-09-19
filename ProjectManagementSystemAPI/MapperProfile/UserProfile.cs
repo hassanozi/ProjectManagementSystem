@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
-using ProjectManagementSystemAPI.DTO.Auth;
 using ProjectManagementSystemAPI.DTO.Users;
+using ProjectManagementSystemAPI.DTOs.AuthDTOs;
 using ProjectManagementSystemAPI.Model;
-using ProjectManagementSystemAPI.ViewModels;
 using ProjectManagementSystemAPI.ViewModels.Auth;
 
 namespace ProjectManagementSystemAPI.MapperProfile
