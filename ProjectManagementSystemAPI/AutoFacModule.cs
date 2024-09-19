@@ -18,10 +18,11 @@ namespace ProjectManagementSystemAPI
         {
             builder.RegisterType<Context>().InstancePerLifetimeScope();
             builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope();
+            builder.RegisterAssemblyTypes(typeof(ProjectsProfile).Assembly).AsImplementedInterfaces().InstancePerLifetimeScope();
 
             //builder.RegisterType<UserService>().As<IUserService>().InstancePerLifetimeScope();
 
-           
+
             //builder.RegisterType<UserMediator>().As<IUserMediator>().InstancePerLifetimeScope();
 
 
