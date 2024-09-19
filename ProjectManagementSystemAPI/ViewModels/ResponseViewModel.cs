@@ -1,28 +1,34 @@
-﻿namespace ProjectManagementSystemAPI.ViewModels
+﻿using ProjectManagementSystemAPI.Enums;
+
+namespace ProjectManagementSystemAPI.ViewModels
 {
-    public class ResponseViewModel
+    public class ResponseViewModel<T>
     {
         public bool IsSuccess { get; set; }
-        public dynamic Data { get; set; }
+        public T Data { get; set; }
         public string Message { get; set; }
+        public ErrorCode ErrorCode { get; set; }
 
-        public static ResponseViewModel Sucess(dynamic data, string message = "Success Operation")
+
+        public static ResponseViewModel<T> Success<T>(T data, string message = "")
         {
-            return new ResponseViewModel
+            return new ResponseViewModel<T>
             {
                 IsSuccess = true,
                 Data = data,
-                Message = message
+                Message = message,
+                ErrorCode = ErrorCode.None,
             };
         }
 
-        public static ResponseViewModel Faliure(string message = "Invalid Operation")
+        public static ResponseViewModel<T> Faliure(ErrorCode errorCode, string message)
         {
-            return new ResponseViewModel
+            return new ResponseViewModel<T>
             {
                 IsSuccess = false,
                 Data = default,
                 Message = message,
+                ErrorCode = errorCode,
             };
         }
     }
