@@ -2,6 +2,7 @@
 using ProjectManagementSystemAPI.Model;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using Task = System.Threading.Tasks.Task;
 
 namespace ProjectManagementSystemAPI.Repositories
 {
@@ -66,7 +67,7 @@ namespace ProjectManagementSystemAPI.Repositories
             return await Get(predicate).FirstOrDefaultAsync();
         }
 
-        public async System.Threading.Tasks.Task SaveChangesAsync()
+        public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();
         }
