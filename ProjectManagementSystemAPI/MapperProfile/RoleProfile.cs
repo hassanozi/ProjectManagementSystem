@@ -13,6 +13,9 @@ namespace ProjectManagementSystemAPI.MapperProfile
         {
             CreateMap<AddRoleDTO, Role>();
             CreateMap<AddRoleViewModel, AddRoleDTO>();
+
+            CreateMap<Role, RoleDTO>().ReverseMap();
+            CreateMap<RoleDTO, RoleViewModel>().ReverseMap();
         }
     }
 }

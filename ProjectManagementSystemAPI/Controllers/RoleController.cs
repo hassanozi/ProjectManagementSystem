@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjectManagementSystemAPI.CQRS.Roles.Command;
+using ProjectManagementSystemAPI.CQRS.Roles.Query;
 using ProjectManagementSystemAPI.CQRS.Tasks.Commands;
 using ProjectManagementSystemAPI.DTOs.RoleDTOs;
 using ProjectManagementSystemAPI.DTOs.TaskDTOs;
@@ -13,7 +14,7 @@ using ProjectManagementSystemAPI.ViewModels.RoleViewModel;
 
 namespace ProjectManagementSystemAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]/[action]")]
     [ApiController]
     public class RoleController : ControllerBase
     {
@@ -31,6 +32,14 @@ namespace ProjectManagementSystemAPI.Controllers
             var command = new CreateRoleCommand(addRoleDTO);
             var result = await _mediator.Send(command);
             return Ok(result);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ResponseViewModel> GetSingleRole(int id)
+        {
+            var role = await _mediator.Send(new GetRoleByIdQuery(id));
+            var mappedRole = role.MapOne<RoleViewModel>();
+            return ResponseViewModel.Success(mappedRole);
         }
     }
 }
