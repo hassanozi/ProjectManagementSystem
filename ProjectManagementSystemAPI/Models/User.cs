@@ -12,7 +12,7 @@ namespace ProjectManagementSystemAPI.Model
         public bool IsActive { get; set; } = false;
         public DateTime CreateDate { get; set; } = DateTime.Now;
 
-        public int? RoleID { get; set; } = 1;
+        //public int? RoleID { get; set; } = 1;
         public List<UserRole> UserRoles { get; set; }
         public List<UserTask> UserTasks { get; set; }
         public List<UserProject> UserProjects { get; set; }
