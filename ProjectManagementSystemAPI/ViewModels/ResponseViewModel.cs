@@ -21,7 +21,7 @@ namespace ProjectManagementSystemAPI.ViewModels
             };
         }
 
-        public static ResponseViewModel Faliure( string message, ErrorCode errorCode = ErrorCode.UnKnown)
+        public static ResponseViewModel Failure( string message, ErrorCode errorCode = ErrorCode.UnKnown)
         {
             return new ResponseViewModel
             {

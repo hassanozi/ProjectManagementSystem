@@ -11,6 +11,6 @@
         NotValidProjectID = 2001,
         NotValidProjectData = 2002,
 
-        NotValidDates = 2002
+        NullName = 4004
     }
 }

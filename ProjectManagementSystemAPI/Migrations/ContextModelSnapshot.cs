@@ -48,7 +48,7 @@ namespace ProjectManagementSystemAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Projects");
+                    b.ToTable("Projects", (string)null);
                 });
 
             modelBuilder.Entity("ProjectManagementSystemAPI.Model.Role", b =>
@@ -68,7 +68,7 @@ namespace ProjectManagementSystemAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Roles", (string)null);
                 });
 
             modelBuilder.Entity("ProjectManagementSystemAPI.Model.RoleFeature", b =>
@@ -92,7 +92,7 @@ namespace ProjectManagementSystemAPI.Migrations
 
                     b.HasIndex("RoleID");
 
-                    b.ToTable("RoleFeatures");
+                    b.ToTable("RoleFeatures", (string)null);
                 });
 
             modelBuilder.Entity("ProjectManagementSystemAPI.Model.Tasks", b =>
@@ -125,7 +125,7 @@ namespace ProjectManagementSystemAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tasks");
+                    b.ToTable("Tasks", (string)null);
                 });
 
             modelBuilder.Entity("ProjectManagementSystemAPI.Model.User", b =>
@@ -174,7 +174,7 @@ namespace ProjectManagementSystemAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("ProjectManagementSystemAPI.Model.UserProject", b =>
@@ -200,7 +200,7 @@ namespace ProjectManagementSystemAPI.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserProjects");
+                    b.ToTable("UserProjects", (string)null);
                 });
 
             modelBuilder.Entity("ProjectManagementSystemAPI.Model.UserRole", b =>
@@ -226,7 +226,7 @@ namespace ProjectManagementSystemAPI.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserRoles");
+                    b.ToTable("UserRoles", (string)null);
                 });
 
             modelBuilder.Entity("ProjectManagementSystemAPI.Model.UserTask", b =>
@@ -252,7 +252,7 @@ namespace ProjectManagementSystemAPI.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserTasks");
+                    b.ToTable("UserTasks", (string)null);
                 });
 
             modelBuilder.Entity("ProjectManagementSystemAPI.Models.ProjectTask", b =>
@@ -278,7 +278,7 @@ namespace ProjectManagementSystemAPI.Migrations
 
                     b.HasIndex("TasksId");
 
-                    b.ToTable("ProjectTasks");
+                    b.ToTable("ProjectTasks", (string)null);
                 });
 
             modelBuilder.Entity("ProjectManagementSystemAPI.Model.RoleFeature", b =>
