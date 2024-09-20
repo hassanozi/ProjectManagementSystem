@@ -25,6 +25,7 @@ namespace ProjectManagementSystemAPI
                 cfg.AddProfile<UserProfile>();
                 cfg.AddProfile<TaskProfile>();
                 cfg.AddProfile<ProjectProfile>();
+                cfg.AddProfile<RoleProfile>();
             }).CreateMapper()).As<IMapper>().InstancePerLifetimeScope();
             
             //builder.RegisterAssemblyTypes(typeof(ConfirmReservationValidator).Assembly)
