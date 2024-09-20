@@ -22,7 +22,7 @@ namespace ProjectManagementSystemAPI.CQRS.Tasks.Commands
 
             if(task == null)
             {
-                return ResponseViewModel.Faliure("Task not Added correctly");
+                return ResponseViewModel.Failure("Task not Added correctly");
             }
             UserTaskDTO userTaskDTO = new UserTaskDTO();
             userTaskDTO.TaskId = task.Id;

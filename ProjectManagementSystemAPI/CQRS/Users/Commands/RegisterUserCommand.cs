@@ -24,14 +24,14 @@ namespace ProjectManagementSystemAPI.CQRS.Users.Commands
 
             if (result is not null)
             {
-                return ResponseViewModel.Faliure("Email is already registered!");
+                return ResponseViewModel.Failure("Email is already registered!");
             }
 
             result = await _userRepository.First(user => user.UserName == request.userRegisterDTO.UserName);
 
             if (result is not null)
             {
-                return ResponseViewModel.Faliure("Username is alerady registered!");
+                return ResponseViewModel.Failure("Username is alerady registered!");
             }
 
             User user = request.userRegisterDTO.MapOne<User>();
