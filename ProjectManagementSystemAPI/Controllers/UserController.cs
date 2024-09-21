@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using ProjectManagementSystemAPI.CQRS.Users.Commands;
+using ProjectManagementSystemAPI.DTOs;
 using ProjectManagementSystemAPI.DTOs.AuthDTOs;
 using ProjectManagementSystemAPI.ViewModels;
 
@@ -8,14 +9,15 @@ namespace ProjectManagementSystemAPI.Controllers
 {
     [Route("[controller]/[action]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class UserController : BaseController
     {
-        IMediator _mediator;
+        //IMediator _mediator;
 
-        public UserController(IMediator mediator)
+        public UserController(ControllereParameters controllereParameters) : base(controllereParameters)
         {
-            _mediator = mediator;
+
         }
+        
 
         [HttpPost]
 

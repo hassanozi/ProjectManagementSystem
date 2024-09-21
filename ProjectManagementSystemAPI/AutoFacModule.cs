@@ -2,6 +2,7 @@
 using AutoMapper;
 
 using ProjectManagementSystemAPI.Data;
+using ProjectManagementSystemAPI.DTOs;
 using ProjectManagementSystemAPI.MapperProfile;
 //using ProjectManagementSystemAPI.Mediators.Users;
 using ProjectManagementSystemAPI.Repositories;
@@ -18,7 +19,9 @@ namespace ProjectManagementSystemAPI
         {
             builder.RegisterType<Context>().InstancePerLifetimeScope();
             builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope();
-
+            builder.RegisterType<UserState>().InstancePerLifetimeScope();
+            builder.RegisterType<ControllereParameters>().InstancePerLifetimeScope();
+            builder.RegisterType<RequestParameters>().InstancePerLifetimeScope();
 
             builder.Register(context => new MapperConfiguration(cfg =>
             {

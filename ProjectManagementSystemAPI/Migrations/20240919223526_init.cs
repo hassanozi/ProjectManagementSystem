@@ -123,8 +123,10 @@ namespace ProjectManagementSystemAPI.Migrations
                     table.ForeignKey(
                         name: "FK_ProjectTasks_Tasks_TasksId",
                         column: x => x.TasksId,
+
                         principalTable: "Tasks",
                         principalColumn: "Id");
+                       
                 });
 
             migrationBuilder.CreateTable(
