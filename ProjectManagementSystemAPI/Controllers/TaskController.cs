@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjectManagementSystemAPI.CQRS.Tasks.Commands;
+using ProjectManagementSystemAPI.CQRS.Tasks.Query;
 using ProjectManagementSystemAPI.DTOs.TaskDTOs;
 using ProjectManagementSystemAPI.ViewModels;
 
@@ -43,6 +44,18 @@ namespace ProjectManagementSystemAPI.Controllers
             var result = await _mediator.Send(new AssignUserInTaskCommand(userTaskDTO));
             return Ok(result);
         }
+        [HttpPost("GetAllPag")]
 
+        public async Task<ActionResult<ResponseViewModel>> GetAllPag(TaskDTO TaskDTO)
+        {
+            if (TaskDTO == null)
+            {
+                return ResponseViewModel.Faliure("Fill data correctly");
+
+            }
+
+            var result = await _mediator.Send(new GetAllProjectQuery(TaskDTO));
+            return Ok(result);
+        }
     }
 }

@@ -20,10 +20,10 @@ namespace ProjectManagementSystemAPI.CQRS.Tasks.Query
         public override async Task<ResponseViewModel> Handle(GetAllProjectQuery request, CancellationToken cancellationToken)
         {
             BaseSpecification<Model.Tasks> baseSpecification = new BaseSpecification<Model.Tasks>();
-            string ProjectTasks = Entity.ProjectTasks.ToString();
-            string UserTasks = Entity.UserTasks.ToString();
+           
 
-            var task = _repository.GetAllPag(x=>x.Title == "").Result.Select(x=> new TaskAllDataDTO
+            var task = _repository.GetAllPag(x=>x.Title == request.TaskDTO.Title && x.ProjectId == request.TaskDTO.ProjectId, 3,0,x=>x.Project,x=>x.UserTasks)
+                .Result.Select(x=> new TaskAllDataDTO
             {
                 Title = x.Title,
                 Description = x.Description,
