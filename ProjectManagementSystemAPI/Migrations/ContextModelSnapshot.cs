@@ -113,6 +113,9 @@ namespace ProjectManagementSystemAPI.Migrations
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("StartDate")
                         .HasColumnType("datetime2");
 
@@ -124,6 +127,8 @@ namespace ProjectManagementSystemAPI.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProjectId");
 
                     b.ToTable("Tasks");
                 });
@@ -255,32 +260,6 @@ namespace ProjectManagementSystemAPI.Migrations
                     b.ToTable("UserTasks");
                 });
 
-            modelBuilder.Entity("ProjectManagementSystemAPI.Models.ProjectTask", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("ProjectId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TasksId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProjectId");
-
-                    b.HasIndex("TasksId");
-
-                    b.ToTable("ProjectTasks");
-                });
-
             modelBuilder.Entity("ProjectManagementSystemAPI.Model.RoleFeature", b =>
                 {
                     b.HasOne("ProjectManagementSystemAPI.Model.Role", "Role")
@@ -290,6 +269,17 @@ namespace ProjectManagementSystemAPI.Migrations
                         .IsRequired();
 
                     b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("ProjectManagementSystemAPI.Model.Tasks", b =>
+                {
+                    b.HasOne("ProjectManagementSystemAPI.Model.Project", "Project")
+                        .WithMany()
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Project");
                 });
 
             modelBuilder.Entity("ProjectManagementSystemAPI.Model.UserProject", b =>
@@ -349,29 +339,8 @@ namespace ProjectManagementSystemAPI.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("ProjectManagementSystemAPI.Models.ProjectTask", b =>
-                {
-                    b.HasOne("ProjectManagementSystemAPI.Model.Project", "Project")
-                        .WithMany("ProjectTasks")
-                        .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("ProjectManagementSystemAPI.Model.Tasks", "Tasks")
-                        .WithMany("ProjectTasks")
-                        .HasForeignKey("TasksId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Project");
-
-                    b.Navigation("Tasks");
-                });
-
             modelBuilder.Entity("ProjectManagementSystemAPI.Model.Project", b =>
                 {
-                    b.Navigation("ProjectTasks");
-
                     b.Navigation("UserProjects");
                 });
 
@@ -382,8 +351,6 @@ namespace ProjectManagementSystemAPI.Migrations
 
             modelBuilder.Entity("ProjectManagementSystemAPI.Model.Tasks", b =>
                 {
-                    b.Navigation("ProjectTasks");
-
                     b.Navigation("UserTasks");
                 });
 

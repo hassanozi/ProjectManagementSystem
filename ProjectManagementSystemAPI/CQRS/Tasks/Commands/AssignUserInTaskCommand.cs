@@ -19,7 +19,10 @@ namespace ProjectManagementSystemAPI.CQRS.Tasks.Commands
         public async Task<UserTask> Handle(AssignUserInTaskCommand request, CancellationToken cancellationToken)
         {
             var UserTask = request.UserTaskDTO.MapOne<UserTask>();
+            
+
             UserTask = await _repository.AddAsync(UserTask);
+           await  _repository.SaveChangesAsync();
             return UserTask;
             
         }

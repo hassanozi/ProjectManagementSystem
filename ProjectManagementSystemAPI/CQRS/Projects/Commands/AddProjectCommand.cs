@@ -21,7 +21,7 @@ namespace ProjectManagementSystemAPI.CQRS.Projects.Commands
         {
             var project = request.AddProjectDTO.MapOne<Project>();
             await _repository.AddAsync(project);
-            await _repository.SaveChangesAsync();
+            //await _repository.SaveChangesAsync();
 
             return true;
         }

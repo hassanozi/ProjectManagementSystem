@@ -30,6 +30,19 @@ namespace ProjectManagementSystemAPI.Controllers
             var result = await _mediator.Send(new AddTaskOrchestratorCommand( addTaskDTO));
             return Ok(result);
         }
+        [HttpPost("AssignUserInTask")]
+
+        public async Task<ActionResult<ResponseViewModel>> AssignUserInTask(UserTaskDTO userTaskDTO)
+        {
+            if (userTaskDTO == null)
+            {
+                return ResponseViewModel.Faliure("Fill data correctly");
+
+            }
+
+            var result = await _mediator.Send(new AssignUserInTaskCommand(userTaskDTO));
+            return Ok(result);
+        }
 
     }
 }

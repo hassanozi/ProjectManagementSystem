@@ -4,6 +4,8 @@ using AutoMapper;
 using ProjectManagementSystemAPI.Data;
 using ProjectManagementSystemAPI.DTOs;
 using ProjectManagementSystemAPI.MapperProfile;
+using ProjectManagementSystemAPI.Model;
+
 //using ProjectManagementSystemAPI.Mediators.Users;
 using ProjectManagementSystemAPI.Repositories;
 
@@ -27,6 +29,7 @@ namespace ProjectManagementSystemAPI
             {
                 cfg.AddProfile<UserProfile>();
                 cfg.AddProfile<TaskProfile>();
+                cfg.AddProfile<UserProjectProfile>();
                 cfg.AddProfile<ProjectProfile>();
             }).CreateMapper()).As<IMapper>().InstancePerLifetimeScope();
             

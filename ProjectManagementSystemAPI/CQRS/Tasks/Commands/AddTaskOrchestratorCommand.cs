@@ -1,4 +1,6 @@
 ﻿using MediatR;
+using ProjectManagementSystemAPI.CQRS.ProjectUser.Query;
+using ProjectManagementSystemAPI.DTOs.ProjectDTOs;
 using ProjectManagementSystemAPI.DTOs.TaskDTOs;
 using ProjectManagementSystemAPI.Helper;
 using ProjectManagementSystemAPI.ViewModels;
@@ -24,17 +26,22 @@ namespace ProjectManagementSystemAPI.CQRS.Tasks.Commands
             {
                 return ResponseViewModel.Faliure("Task not Added correctly");
             }
-            UserTaskDTO userTaskDTO = new UserTaskDTO();
-            userTaskDTO.TaskId = task.Id;
-            userTaskDTO.UserId = request.AddTaskDTO.UserId;
+            UserProjectDTO userProjectDTO = request.AddTaskDTO.MapOne<UserProjectDTO>();
 
-            var userTask = await _mediator.Send( new AssignUserInTaskCommand(userTaskDTO));
+            var UserProject = await _mediator.Send(new GetUserProjectQueryById( userProjectDTO));
+            if(UserProject == null)
+            {
+                return ResponseViewModel.Faliure("this user not exist in the project");
+            }
+            
+            //UserTaskDTO userTaskDTO = new UserTaskDTO();
+            //userTaskDTO.TasksId = task.Id;
+            //userTaskDTO.UserId = request.AddTaskDTO.UserId;
 
-            TaskProjectDTO projectDTO = new TaskProjectDTO();
-            projectDTO.TaskId = task.Id;
-            projectDTO.ProjectId = request.AddTaskDTO.ProjectId;
-            var projectTask = await _mediator.Send(new AssignTaskInProjectCommand(projectDTO));
+            //var userTask = await _mediator.Send( new AssignUserInTaskCommand(userTaskDTO));
 
+
+           
             return ResponseViewModel.Success(task);
 
         }

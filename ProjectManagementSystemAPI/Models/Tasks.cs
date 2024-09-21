@@ -1,5 +1,5 @@
 ﻿using ProjectManagementSystemAPI.Enum;
-using ProjectManagementSystemAPI.Models;
+using ProjectManagementSystemAPI.Model;
 
 namespace ProjectManagementSystemAPI.Model
 {
@@ -10,8 +10,9 @@ namespace ProjectManagementSystemAPI.Model
         public StatusTask Status { get; set; } = StatusTask.ToDo;
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
-
-        public List<ProjectTask> ProjectTasks { get; set; }
+        public int ProjectId { get; set; }
+      
+        public Project Project{ get; set; }
         public List<UserTask> UserTasks { get; set; }
     }
 }

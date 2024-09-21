@@ -2,7 +2,7 @@
 {
     public class UserTaskDTO
     {
-        public int TaskId { get; set; }
+        public int TasksId { get; set; }
         public int UserId { get; set; }
     }
 }

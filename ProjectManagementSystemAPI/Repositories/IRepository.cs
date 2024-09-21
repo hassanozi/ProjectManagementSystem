@@ -1,13 +1,20 @@
-﻿using System.Linq.Expressions;
+﻿using ProjectManagementSystemAPI.Model;
+using ProjectManagementSystemAPI.Specification;
+using System.Linq.Expressions;
 
 namespace ProjectManagementSystemAPI.Repositories
 {
-    public interface IRepository<T>
+    public interface IRepository<T> where T : BaseModel
     {
         IQueryable<T> GetAll();
         IQueryable<T> Get(Expression<Func<T, bool>> predicate);
         T GetByID(int id);
+        Task<IQueryable<T>> GetAllPag(Expression<Func<T, bool>> predicate,
+             int take = 10, int skip = 0,
+            params Expression<Func<T, object>>[] includes
+            );
         T GetWithTrackinByID(int id);
+        Task<List<T>> GetAll(BaseSpecification<T> baseSpecification);
         Task<T> AddAsync(T entity);
         T Update(T entity);
         void Delete(T entity);
