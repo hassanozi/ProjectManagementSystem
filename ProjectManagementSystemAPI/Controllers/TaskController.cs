@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ProjectManagementSystemAPI.CQRS.Projects.Queries;
 using ProjectManagementSystemAPI.CQRS.Tasks.Commands;
 using ProjectManagementSystemAPI.CQRS.Tasks.Query;
 using ProjectManagementSystemAPI.DTOs.TaskDTOs;
@@ -8,7 +9,7 @@ using ProjectManagementSystemAPI.ViewModels;
 
 namespace ProjectManagementSystemAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class TaskController : ControllerBase
     {
@@ -56,6 +57,22 @@ namespace ProjectManagementSystemAPI.Controllers
 
             var result = await _mediator.Send(new GetAllTasksQuery(TaskDTO));
             return Ok(result);
+        }
+
+        [HttpGet]
+        public async Task<ResponseViewModel> GetTaskNumber()
+        {
+            var TasksNo = await _mediator.Send(new GetTasksCountQuery());
+
+            return ResponseViewModel.Success(TasksNo, "you get Tasks count successfully");
+        }
+
+        [HttpGet]
+        public async Task<ResponseViewModel> GetAverageTasksInProgressStatus()
+        {
+            var InProgressTasksNo = await _mediator.Send(new GetAverageProgressStatusTaskQuery());
+
+            return ResponseViewModel.Success(InProgressTasksNo, "you get Tasks count successfully");
         }
     }
 }

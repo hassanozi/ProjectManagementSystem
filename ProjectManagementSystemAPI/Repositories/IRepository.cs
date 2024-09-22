@@ -7,6 +7,7 @@ namespace ProjectManagementSystemAPI.Repositories
     public interface IRepository<T> where T : BaseModel
     {
         IQueryable<T> GetAll();
+        IQueryable<T> GetAll(Expression<Func<T, bool>> predicate);
         IQueryable<T> Get(Expression<Func<T, bool>> predicate);
         T GetByID(int id);
         Task<IQueryable<T>> GetAllPag(Expression<Func<T, bool>> predicate,
@@ -14,7 +15,7 @@ namespace ProjectManagementSystemAPI.Repositories
             params Expression<Func<T, object>>[] includes
             );
         T GetWithTrackinByID(int id);
-        Task<List<T>> GetAll(BaseSpecification<T> baseSpecification);
+        Task<IQueryable<T>> GetAll(BaseSpecification<T> baseSpecification);
         Task<T> AddAsync(T entity);
         T Update(T entity);
         void Delete(T entity);

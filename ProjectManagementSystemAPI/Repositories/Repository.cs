@@ -49,7 +49,12 @@ namespace ProjectManagementSystemAPI.Repositories
         {
             return _context.Set<T>().Where(x => !x.Deleted).AsNoTracking();
         }
-        
+
+        public IQueryable<T> GetAll(Expression<Func<T, bool>> predicate)
+        {
+            return _context.Set<T>().Where(  predicate).AsNoTracking();
+        }
+
         public T GetByID(int id)
         {
             return GetAll().FirstOrDefault(x => x.Id == id);
@@ -81,23 +86,22 @@ namespace ProjectManagementSystemAPI.Repositories
 
             return query;
         } 
-        public async Task<List<T>> GetAll(BaseSpecification<T> baseSpecification
+        public async Task<IQueryable<T>> GetAll(BaseSpecification<T> baseSpecification
             )
         {
             IQueryable<T> query = _context.Set<T>();
-            foreach (var include in baseSpecification.includes)
-            {
-                query = query.Include(include);
-            }
+            
+            query = baseSpecification.Includes.Aggregate(query, (current, include) => include(current));
+           
 
             if (baseSpecification.Criteria != null)
             {
                 query = query.Where(baseSpecification.Criteria);
             }
 
-            var result = await query.Skip(baseSpecification.Skip)
+            var result =  query.Skip(baseSpecification.Skip)
                 .Take(baseSpecification.Take)
-                .ToListAsync();
+                ;
 
             return result;
         }

@@ -11,21 +11,19 @@ namespace ProjectManagementSystemAPI.Specification
 
         }
         public Expression<Func<T, bool>> Criteria { get ; set; }
-        public Expression<Func<T, object>>[] includes {  get; set; }
-        public Expression<Func<T, object>> OrderBy { get ; set; }
+       
+        public Expression<Func<T, object>> OrderBy { get; set; } = x => x.Id;
         public Expression<Func<T, object>> OrderByDesc { get; set; }
         public int Skip { get; set; } = 0;
         public int Take { get; set; } = 10;
-        public bool IsPaginationEnabled { get; set; } = false;
-        public List<Func<IQueryable<T>, IIncludableQueryable<T, object>>> Includes { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+      
+        public List<Func<IQueryable<T>, IIncludableQueryable<T, object>>> Includes { get ; set  ; } = new List<Func<IQueryable<T>, IIncludableQueryable<T, object>>>();
 
-        public BaseSpecification(Expression<Func<T, bool>> CriteriaExpression)
+       
+        public void AddCriteria(Expression<Func<T, bool>> criteriaExpression)
         {
-
-            Criteria = CriteriaExpression;
-
+            Criteria=(criteriaExpression);
         }
-
         public void AddOrderBy(Expression<Func<T, object>> OrderByExpression)
         {
 
@@ -39,12 +37,11 @@ namespace ProjectManagementSystemAPI.Specification
             OrderByDesc = OrderByDescExpression;
 
         }
-        public void ApplyPagination(int skip, int take)
+        public void AddInclude(Func<IQueryable<T>, IIncludableQueryable<T, object>> includeExpression)
         {
-            IsPaginationEnabled = true;
-            Skip = skip;
-            Take = take;
-
+            Includes.Add(includeExpression);
         }
+        
+        
     }
 }
