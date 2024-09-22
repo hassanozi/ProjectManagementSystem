@@ -12,6 +12,10 @@ namespace ProjectManagementSystemAPI.Model
         public bool IsActive { get; set; } = false;
         public DateTime CreateDate { get; set; } = DateTime.Now;
 
+        public string EmailConfirmationToken { get; set; }
+        public DateTime TokenExpiration { get; set; } = new DateTime().AddHours(1);
+
+        public bool IsVerified { get; set; } = false;
         public int? RoleID { get; set; } = 1;
         public List<UserRole> UserRoles { get; set; }
         public List<UserTask> UserTasks { get; set; }

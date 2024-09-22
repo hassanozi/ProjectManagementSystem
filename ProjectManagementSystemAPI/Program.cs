@@ -12,11 +12,15 @@ using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Microsoft.Extensions.Configuration;
 using ProjectManagementSystemAPI.Constants;
+using ProjectManagementSystemAPI.Services;
+using ProjectManagementSystemAPI.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
+
+builder.Services.AddTransient<IMailingService, MailingService>();
 // Add services to the container.
 builder.Services.AddDbContext<Context>(option =>
 {
@@ -38,7 +42,7 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Hotel Reservation System API", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Project Managment System API", Version = "v1" });
 
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {

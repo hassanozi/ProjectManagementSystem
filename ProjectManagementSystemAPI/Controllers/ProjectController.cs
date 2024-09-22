@@ -4,7 +4,6 @@ using ProjectManagementSystemAPI.CQRS.Projects.Commands;
 using ProjectManagementSystemAPI.CQRS.Projects.Queries;
 using ProjectManagementSystemAPI.DTOs.ProjectDTOs;
 using ProjectManagementSystemAPI.Helper;
-using ProjectManagementSystemAPI.Model;
 using ProjectManagementSystemAPI.ViewModels;
 using ProjectManagementSystemAPI.ViewModels.ProjectViewModels;
 
