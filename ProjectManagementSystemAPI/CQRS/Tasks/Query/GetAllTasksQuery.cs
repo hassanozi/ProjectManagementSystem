@@ -9,20 +9,19 @@ using System.Linq;
 
 namespace ProjectManagementSystemAPI.CQRS.Tasks.Query
 {
-    public record GetAllProjectQuery(TaskDTO TaskDTO) :IRequest<ResponseViewModel>;
+    public record GetAllTasksQuery(TaskDTO TaskDTO) :IRequest<ResponseViewModel>;
 
-    public class GetAllProjectQueryHandler : BaseRequestHandler<Model.Tasks, GetAllProjectQuery, ResponseViewModel>
+    public class GetAllTasksQueryHandler : BaseRequestHandler<Model.Tasks, GetAllTasksQuery, ResponseViewModel>
     {
-        public GetAllProjectQueryHandler(RequestParameters requestParameters, IRepository<Model.Tasks> repository) : base(requestParameters, repository)
+        public GetAllTasksQueryHandler(RequestParameters requestParameters, IRepository<Model.Tasks> repository) : base(requestParameters, repository)
         {
         }
 
-        public override async Task<ResponseViewModel> Handle(GetAllProjectQuery request, CancellationToken cancellationToken)
+        public override async Task<ResponseViewModel> Handle(GetAllTasksQuery request, CancellationToken cancellationToken)
         {
-            BaseSpecification<Model.Tasks> baseSpecification = new BaseSpecification<Model.Tasks>();
-           
+            
 
-            var task = _repository.GetAllPag(x=>x.Title == request.TaskDTO.Title && x.ProjectId == request.TaskDTO.ProjectId, 3,0,x=>x.Project,x=>x.UserTasks)
+            var tasks = _repository.GetAllPag(x=>x.Title == request.TaskDTO.Title && x.ProjectId == request.TaskDTO.ProjectId, 3,0,x=>x.Project,x=>x.UserTasks)
                 .Result.Select(x=> new TaskAllDataDTO
             {
                 Title = x.Title,
@@ -37,7 +36,7 @@ namespace ProjectManagementSystemAPI.CQRS.Tasks.Query
                 EndDate = x.EndDate,
             });
 
-           var result = task.ToList();
+           var result = tasks.ToList();
             return ResponseViewModel.Success(result);
         }
     }

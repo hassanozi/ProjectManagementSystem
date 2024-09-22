@@ -54,7 +54,7 @@ namespace ProjectManagementSystemAPI.Controllers
 
             }
 
-            var result = await _mediator.Send(new GetAllProjectQuery(TaskDTO));
+            var result = await _mediator.Send(new GetAllTasksQuery(TaskDTO));
             return Ok(result);
         }
     }
