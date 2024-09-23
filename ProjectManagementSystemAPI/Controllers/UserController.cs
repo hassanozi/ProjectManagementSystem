@@ -4,6 +4,7 @@ using ProjectManagementSystemAPI.CQRS.Users.Commands;
 using ProjectManagementSystemAPI.DTOs;
 using ProjectManagementSystemAPI.DTOs.AuthDTOs;
 using ProjectManagementSystemAPI.ViewModels;
+using ProjectsManagement.CQRS.Users.Commands;
 
 namespace ProjectManagementSystemAPI.Controllers
 {
@@ -35,6 +36,15 @@ namespace ProjectManagementSystemAPI.Controllers
             var x = await _mediator.Send(new LoginUserCommand(user));
 
             return Ok(x);
+        }
+
+        [HttpPut]
+        public async Task<ResponseViewModel> ChangePassword(ChangePasswordDTO changePasswordDTO)
+        {
+
+            var result = await _mediator.Send(new ChangePasswordCommand(changePasswordDTO));
+           
+            return ResponseViewModel.Success(result.Message);
         }
     }
 }
