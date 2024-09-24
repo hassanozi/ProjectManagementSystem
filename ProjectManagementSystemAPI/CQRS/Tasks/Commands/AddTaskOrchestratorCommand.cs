@@ -24,7 +24,7 @@ namespace ProjectManagementSystemAPI.CQRS.Tasks.Commands
 
             if(task == null)
             {
-                return ResponseViewModel.Faliure("Task not Added correctly");
+                return ResponseViewModel.Failure("Task not Added correctly");
             }
             UserProjectDTO userProjectDTO = request.AddTaskDTO.MapOne<UserProjectDTO>();
 

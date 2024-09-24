@@ -25,7 +25,7 @@ namespace ProjectManagementSystemAPI.Controllers
         {
             if(addTaskDTO == null)
             {
-                return ResponseViewModel.Faliure("Fill data correctly");
+                return ResponseViewModel.Failure("Fill data correctly");
 
             }
 

@@ -38,6 +38,14 @@ namespace ProjectManagementSystemAPI.Controllers
             var mappedProject = project.MapOne<ProjectViewModel>();
             return ResponseViewModel.Success(mappedProject);
         }
+        
+        [HttpGet]
+        public async Task<ResponseViewModel> GetProjectsList()
+        {
+            var projects = await _mediator.Send(new GetProjectsListQuery());
+            var mappedProjects = projects.Select(x => x.MapOne<ProjectViewModel>());
+            return ResponseViewModel.Success(mappedProjects);
+        }
         [HttpGet]
         public async Task<ResponseViewModel> GetProjectNumber()
         {

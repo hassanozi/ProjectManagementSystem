@@ -26,7 +26,7 @@ namespace ProjectManagementSystemAPI.CQRS.Users.Commands
 
             if (user is null || !BCrypt.Net.BCrypt.Verify(request.userLoginDTO.Password, user.PasswordHash))
             {
-                return ResponseViewModel.Faliure("Email or Password is incorrect");
+                return ResponseViewModel.Failure("Email or Password is incorrect");
             }
 
             var userDTO = user.MapOne<UserDTO>();
