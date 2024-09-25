@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ProjectManagementSystemAPI.DTO.Users;
 using ProjectManagementSystemAPI.DTOs.AuthDTOs;
+using ProjectManagementSystemAPI.DTOs.UserDTOs;
 using ProjectManagementSystemAPI.Model;
 using ProjectManagementSystemAPI.ViewModels.Auth;
 
@@ -15,7 +16,9 @@ namespace ProjectManagementSystemAPI.MapperProfile
 
             CreateMap<UserRegisterDTO, User>().ReverseMap();
             CreateMap<UserDTO, User>().ReverseMap();
-                
+
+            CreateMap<User, UserReturnDTO>().ReverseMap();
+
             //CreateMap<UserDTO, CustomerDTO>()
             //    .ForMember(dest => dest.UserId , opt => opt.MapFrom(src=>src.Id))
             //    .ReverseMap();
