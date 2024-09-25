@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjectManagementSystemAPI.CQRS.Projects.Queries;
 using ProjectManagementSystemAPI.CQRS.Tasks.Commands;
-using ProjectManagementSystemAPI.CQRS.Tasks.Query;
 using ProjectManagementSystemAPI.DTOs.TaskDTOs;
 using ProjectManagementSystemAPI.Enum;
 using ProjectManagementSystemAPI.Filters;
 using ProjectManagementSystemAPI.ViewModels;
+using ProjectManagementSystemAPI.ViewModels.TaskViewModels;
 
 namespace ProjectManagementSystemAPI.Controllers
 {
@@ -22,7 +22,7 @@ namespace ProjectManagementSystemAPI.Controllers
             _mediator = mediator;
         }
 
-        [HttpPost("AddTask")]
+        [HttpPost()]
         [Authorize]
         [TypeFilter(typeof(CustomizedAuthorize), Arguments = new object[] { Feature.CreateTask })]
         public async Task<ActionResult<ResponseViewModel>> AddTask(AddTaskDTO addTaskDTO)
@@ -36,8 +36,16 @@ namespace ProjectManagementSystemAPI.Controllers
             var result = await _mediator.Send(new AddTaskOrchestratorCommand( addTaskDTO));
             return Ok(result);
         }
-        [HttpPost("AssignUserInTask")]
 
+
+        [HttpGet]
+        public async Task<IEnumerable<TaskViewModel>> GetAllTasks()
+        {
+            var result = await _mediator.Send(new GetTasksListQuery());
+
+            return (IEnumerable<TaskViewModel>)result;
+        }
+        [HttpPost("AssignUserInTask")]
         public async Task<ActionResult<ResponseViewModel>> AssignUserInTask(UserTaskDTO userTaskDTO)
         {
             if (userTaskDTO == null)
