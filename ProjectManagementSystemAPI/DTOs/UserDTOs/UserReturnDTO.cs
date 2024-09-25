@@ -10,5 +10,6 @@
         public string PhoneNumber { get; set; }
         public bool IsActive { get; set; } = false;
         public DateTime CreateDate { get; set; } = DateTime.Now;
+        public int RoleID { get; set; }
     }
 }

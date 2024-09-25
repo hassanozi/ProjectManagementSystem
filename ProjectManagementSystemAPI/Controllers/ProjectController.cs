@@ -1,10 +1,13 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProjectManagementSystemAPI.CQRS.Projects.Commands;
 using ProjectManagementSystemAPI.CQRS.Projects.Queries;
 using ProjectManagementSystemAPI.CQRS.Tasks.Query;
 using ProjectManagementSystemAPI.DTOs.ProjectDTOs;
 using ProjectManagementSystemAPI.DTOs.TaskDTOs;
+using ProjectManagementSystemAPI.Enum;
+using ProjectManagementSystemAPI.Filters;
 using ProjectManagementSystemAPI.Helper;
 using ProjectManagementSystemAPI.Model;
 using ProjectManagementSystemAPI.ViewModels;
@@ -23,6 +26,8 @@ namespace ProjectManagementSystemAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
+        [TypeFilter(typeof(CustomizedAuthorize), Arguments = new object[] { Feature.CreateProject })]
         public async Task<ResponseViewModel> CreateProject(AddProjectViewModel viewModel)
         {
             var projectDTO = viewModel.MapOne<AddProjectDTO>();
@@ -38,8 +43,10 @@ namespace ProjectManagementSystemAPI.Controllers
             var mappedProject = project.MapOne<ProjectViewModel>();
             return ResponseViewModel.Success(mappedProject);
         }
-        
+
         [HttpGet]
+        [Authorize]
+        [TypeFilter(typeof(CustomizedAuthorize), Arguments = new object[] { Feature.ViewAllProjects })]
         public async Task<ResponseViewModel> GetProjectsList()
         {
             var projects = await _mediator.Send(new GetProjectsListQuery());

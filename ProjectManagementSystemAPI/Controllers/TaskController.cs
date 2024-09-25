@@ -1,15 +1,18 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjectManagementSystemAPI.CQRS.Projects.Queries;
 using ProjectManagementSystemAPI.CQRS.Tasks.Commands;
 using ProjectManagementSystemAPI.CQRS.Tasks.Query;
 using ProjectManagementSystemAPI.DTOs.TaskDTOs;
+using ProjectManagementSystemAPI.Enum;
+using ProjectManagementSystemAPI.Filters;
 using ProjectManagementSystemAPI.ViewModels;
 
 namespace ProjectManagementSystemAPI.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("[controller]/[action]")]
     [ApiController]
     public class TaskController : ControllerBase
     {
@@ -20,7 +23,8 @@ namespace ProjectManagementSystemAPI.Controllers
         }
 
         [HttpPost("AddTask")]
-
+        [Authorize]
+        [TypeFilter(typeof(CustomizedAuthorize), Arguments = new object[] { Feature.CreateTask })]
         public async Task<ActionResult<ResponseViewModel>> AddTask(AddTaskDTO addTaskDTO)
         {
             if(addTaskDTO == null)

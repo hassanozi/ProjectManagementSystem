@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc.Filters;
+using ProjectManagementSystemAPI.Constants;
 using ProjectManagementSystemAPI.CQRS.RoleFeatures.Queries;
 using ProjectManagementSystemAPI.Enum;
 
@@ -20,7 +21,7 @@ namespace ProjectManagementSystemAPI.Filters
         {
             var loggedUser = context.HttpContext.User;
 
-            var roleID = loggedUser.FindFirst("RoleID");
+            var roleID = loggedUser.FindFirst(CustomClaimTypes.RoleId);
 
             if (roleID is null || string.IsNullOrEmpty(roleID.Value))
             {
