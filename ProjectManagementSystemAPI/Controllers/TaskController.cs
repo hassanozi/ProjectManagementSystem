@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjectManagementSystemAPI.CQRS.Projects.Queries;
+using ProjectManagementSystemAPI.CQRS.Task.Commands;
 using ProjectManagementSystemAPI.CQRS.Tasks.Commands;
+using ProjectManagementSystemAPI.CQRS.Tasks.Query;
 using ProjectManagementSystemAPI.DTOs.TaskDTOs;
 using ProjectManagementSystemAPI.Enum;
 using ProjectManagementSystemAPI.Filters;
@@ -37,15 +39,17 @@ namespace ProjectManagementSystemAPI.Controllers
             return Ok(result);
         }
 
-
         [HttpGet]
+        [Authorize]
+        [TypeFilter(typeof(CustomizedAuthorize), Arguments = new object[] { Feature.ViewAllTasks })]
         public async Task<IEnumerable<TaskViewModel>> GetAllTasks()
         {
             var result = await _mediator.Send(new GetTasksListQuery());
 
             return (IEnumerable<TaskViewModel>)result;
         }
-        [HttpPost("AssignUserInTask")]
+
+        [HttpPost()]
         public async Task<ActionResult<ResponseViewModel>> AssignUserInTask(UserTaskDTO userTaskDTO)
         {
             if (userTaskDTO == null)
@@ -57,8 +61,8 @@ namespace ProjectManagementSystemAPI.Controllers
             var result = await _mediator.Send(new AssignUserInTaskCommand(userTaskDTO));
             return Ok(result);
         }
-        [HttpPost("GetAllPag")]
 
+        [HttpPost()]
         public async Task<ActionResult<ResponseViewModel>> GetAllPag(TaskDTO TaskDTO)
         {
             if (TaskDTO == null)

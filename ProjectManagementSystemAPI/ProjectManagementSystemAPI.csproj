@@ -23,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="CQRS\Tasks\Queries\" />
     <Folder Include="CQRS\UserRoles\Commands\" />
     <Folder Include="CQRS\UserRoles\Queries\" />
   </ItemGroup>

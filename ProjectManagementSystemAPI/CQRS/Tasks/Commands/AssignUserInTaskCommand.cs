@@ -4,7 +4,7 @@ using ProjectManagementSystemAPI.Helper;
 using ProjectManagementSystemAPI.Model;
 using ProjectManagementSystemAPI.Repositories;
 
-namespace ProjectManagementSystemAPI.CQRS.Tasks.Commands
+namespace ProjectManagementSystemAPI.CQRS.Task.Commands
 {
     public record AssignUserInTaskCommand(UserTaskDTO UserTaskDTO) : IRequest<UserTask>;
     
