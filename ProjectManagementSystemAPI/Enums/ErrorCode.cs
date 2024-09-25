@@ -6,7 +6,8 @@
         UnKnown = 1,
 
         UserNotFound = 1000,
-        NotValidRoleID = 1001,
+        NotValidUserID = 1001,
+        NotValidRoleID = 1002,
 
 
         ProjectNotFound = 2000,
