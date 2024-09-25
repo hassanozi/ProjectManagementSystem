@@ -38,7 +38,7 @@ namespace ProjectManagementSystemAPI.Controllers
         {
             if (userTaskDTO == null)
             {
-                return ResponseViewModel.Faliure("Fill data correctly");
+                return ResponseViewModel.Failure("Fill data correctly");
 
             }
 
@@ -51,7 +51,7 @@ namespace ProjectManagementSystemAPI.Controllers
         {
             if (TaskDTO == null)
             {
-                return ResponseViewModel.Faliure("Fill data correctly");
+                return ResponseViewModel.Failure("Fill data correctly");
 
             }
 

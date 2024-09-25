@@ -20,7 +20,7 @@ namespace ProjectManagementSystemAPI.CQRS.ProjectUser.Command
         {
             if(request == null)
             {
-                return ResponseViewModel.Faliure("Don't do this again bro");
+                return ResponseViewModel.Failure("Don't do this again bro");
             }
            
             UserProject userProject = request.userProjectDTO.MapOne<UserProject>();

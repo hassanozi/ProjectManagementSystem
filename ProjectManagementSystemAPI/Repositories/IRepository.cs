@@ -10,6 +10,7 @@ namespace ProjectManagementSystemAPI.Repositories
         IQueryable<T> GetAll(Expression<Func<T, bool>> predicate);
         IQueryable<T> Get(Expression<Func<T, bool>> predicate);
         T GetByID(int id);
+        Task<T> GetByIdAsync(int id);
         Task<IQueryable<T>> GetAllPag(Expression<Func<T, bool>> predicate,
              int take = 10, int skip = 0,
             params Expression<Func<T, object>>[] includes

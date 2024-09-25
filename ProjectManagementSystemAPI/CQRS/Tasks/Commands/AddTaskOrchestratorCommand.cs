@@ -31,7 +31,7 @@ namespace ProjectManagementSystemAPI.CQRS.Tasks.Commands
             var UserProject = await _mediator.Send(new GetUserProjectQueryById( userProjectDTO));
             if(UserProject == null)
             {
-                return ResponseViewModel.Faliure("this user not exist in the project");
+                return ResponseViewModel.Failure("this user not exist in the project");
             }
             
             //UserTaskDTO userTaskDTO = new UserTaskDTO();

@@ -60,6 +60,11 @@ namespace ProjectManagementSystemAPI.Repositories
             return GetAll().FirstOrDefault(x => x.Id == id);
         }
 
+        public async Task<T> GetByIdAsync(int id)
+        {
+            return await _context.Set<T>().FirstOrDefaultAsync(x => x.Id == id);
+        }
+
         public T GetWithTrackinByID(int id)
         {
             return _context.Set<T>()
